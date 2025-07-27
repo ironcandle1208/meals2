@@ -8,6 +8,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
+    // Temporary dummy reducer to prevent empty reducer error
+    app: (state = { initialized: true }, action: any) => state,
     // mealPlan: mealPlanSlice,
     // recipe: recipeSlice,
     // shoppingList: shoppingListSlice,
