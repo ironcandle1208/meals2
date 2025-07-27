@@ -1,5 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 import { COLORS, SPACING, FONT_SIZES } from '../../constants';
 
 interface CustomButtonProps {

@@ -18,7 +18,9 @@ export const isValidDate = (dateString: string): boolean => {
 };
 
 // 献立バリデーション
-export const validateMealPlan = (mealPlan: Partial<MealPlan>): ValidationResult => {
+export const validateMealPlan = (
+  mealPlan: Partial<MealPlan>
+): ValidationResult => {
   const errors: string[] = [];
 
   if (!mealPlan.name || mealPlan.name.trim().length === 0) {
