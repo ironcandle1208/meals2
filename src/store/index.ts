@@ -1,18 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-// Slices will be imported here as they are created
-// import mealPlanSlice from '../features/mealPlan/mealPlanSlice';
-// import recipeSlice from '../features/recipe/recipeSlice';
-// import shoppingListSlice from '../features/shoppingList/shoppingListSlice';
+// Import slices
+import mealPlanSlice from '../features/mealPlan/mealPlanSlice';
+import recipeSlice from '../features/recipe/recipeSlice';
+import shoppingListSlice from '../features/shoppingList/shoppingListSlice';
 
 export const store = configureStore({
   reducer: {
-    // Temporary dummy reducer to prevent empty reducer error
-    app: (state = { initialized: true }, action: any) => state,
-    // mealPlan: mealPlanSlice,
-    // recipe: recipeSlice,
-    // shoppingList: shoppingListSlice,
+    mealPlan: mealPlanSlice,
+    recipe: recipeSlice,
+    shoppingList: shoppingListSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
