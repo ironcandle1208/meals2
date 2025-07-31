@@ -7,8 +7,9 @@ import { COLORS, SPACING, FONT_SIZES, MEAL_TYPES } from '../../constants';
 interface MealCardProps {
   mealPlan: MealPlan;
   onEdit: (mealPlan: MealPlan) => void;
-  onDelete: (mealPlan: MealPlan) => void;
+  onDelete?: (mealPlan: MealPlan) => void;
   onPress?: (mealPlan: MealPlan) => void;
+  showDate?: boolean;
 }
 
 const MealCard: React.FC<MealCardProps> = ({
@@ -16,8 +17,11 @@ const MealCard: React.FC<MealCardProps> = ({
   onEdit,
   onDelete,
   onPress,
+  showDate = true,
 }) => {
   const handleDelete = () => {
+    if (!onDelete) return;
+    
     Alert.alert('削除確認', `「${mealPlan.name}」を削除しますか？`, [
       {
         text: 'キャンセル',
@@ -68,7 +72,7 @@ const MealCard: React.FC<MealCardProps> = ({
           />
           <Text style={styles.mealType}>{MEAL_TYPES[mealPlan.mealType]}</Text>
         </View>
-        <Text style={styles.date}>{formatDate(mealPlan.date)}</Text>
+        {showDate && <Text style={styles.date}>{formatDate(mealPlan.date)}</Text>}
       </View>
 
       <Text style={styles.name}>{mealPlan.name}</Text>
@@ -93,13 +97,15 @@ const MealCard: React.FC<MealCardProps> = ({
           <Text style={styles.editButtonText}>編集</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.actionButton, styles.deleteButton]}
-          onPress={handleDelete}
-        >
-          <Ionicons name="trash-outline" size={16} color={COLORS.error} />
-          <Text style={styles.deleteButtonText}>削除</Text>
-        </TouchableOpacity>
+        {onDelete && (
+          <TouchableOpacity
+            style={[styles.actionButton, styles.deleteButton]}
+            onPress={handleDelete}
+          >
+            <Ionicons name="trash-outline" size={16} color={COLORS.error} />
+            <Text style={styles.deleteButtonText}>削除</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </TouchableOpacity>
   );

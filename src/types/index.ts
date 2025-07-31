@@ -188,7 +188,7 @@ export type RootStackParamList = {
   Search: undefined;
   MealPlanDetail: { mealPlanId: string };
   RecipeDetail: { recipeId: string };
-  MealPlanForm: { mealPlanId?: string };
+  MealPlanForm: { mealPlanId?: string; date?: string };
   RecipeForm: { recipeId?: string };
 };
 

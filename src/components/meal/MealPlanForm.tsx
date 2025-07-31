@@ -28,12 +28,14 @@ import CustomButton from '../common/CustomButton';
 
 interface MealPlanFormProps {
   mealPlanId?: string;
+  initialDate?: string;
   onSave?: (mealPlanId: string) => void;
   onCancel?: () => void;
 }
 
 const MealPlanForm: React.FC<MealPlanFormProps> = ({
   mealPlanId,
+  initialDate,
   onSave,
   onCancel,
 }) => {
@@ -44,7 +46,7 @@ const MealPlanForm: React.FC<MealPlanFormProps> = ({
 
   // Form state
   const [name, setName] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(initialDate ? new Date(initialDate) : new Date());
   const [mealType, setMealType] = useState<MealType>('breakfast');
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);

@@ -23,7 +23,7 @@ const MealPlanFormScreen: React.FC<MealPlanFormScreenProps> = ({
   route,
   navigation,
 }) => {
-  const { mealPlanId } = route.params || {};
+  const { mealPlanId, date } = route.params || {};
 
   const handleSave = (savedMealPlanId: string) => {
     // Navigate back to meal plan list or detail screen
@@ -38,6 +38,7 @@ const MealPlanFormScreen: React.FC<MealPlanFormScreenProps> = ({
     <View style={styles.container}>
       <MealPlanForm
         mealPlanId={mealPlanId}
+        initialDate={date}
         onSave={handleSave}
         onCancel={handleCancel}
       />
