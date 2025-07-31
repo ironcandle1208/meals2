@@ -18,7 +18,11 @@ import {
   clearError,
 } from '../../features/mealPlan/mealPlanSlice';
 import { validateMealPlan } from '../../utils/validation';
-import { MealType, CreateMealPlanInput, UpdateMealPlanInput } from '../../types';
+import {
+  MealType,
+  CreateMealPlanInput,
+  UpdateMealPlanInput,
+} from '../../types';
 import { COLORS, SPACING, FONT_SIZES, MEAL_TYPES } from '../../constants';
 import CustomButton from '../common/CustomButton';
 
@@ -143,25 +147,21 @@ const MealPlanForm: React.FC<MealPlanFormProps> = ({
   };
 
   const handleCancel = () => {
-    Alert.alert(
-      '確認',
-      '変更を破棄しますか？',
-      [
-        {
-          text: 'キャンセル',
-          style: 'cancel',
+    Alert.alert('確認', '変更を破棄しますか？', [
+      {
+        text: 'キャンセル',
+        style: 'cancel',
+      },
+      {
+        text: '破棄',
+        style: 'destructive',
+        onPress: () => {
+          if (onCancel) {
+            onCancel();
+          }
         },
-        {
-          text: '破棄',
-          style: 'destructive',
-          onPress: () => {
-            if (onCancel) {
-              onCancel();
-            }
-          },
-        },
-      ]
-    );
+      },
+    ]);
   };
 
   const formatDateForDisplay = (date: Date): string => {
@@ -241,11 +241,7 @@ const MealPlanForm: React.FC<MealPlanFormProps> = ({
                 value="breakfast"
                 key="breakfast"
               />
-              <Picker.Item
-                label={MEAL_TYPES.lunch}
-                value="lunch"
-                key="lunch"
-              />
+              <Picker.Item label={MEAL_TYPES.lunch} value="lunch" key="lunch" />
               <Picker.Item
                 label={MEAL_TYPES.dinner}
                 value="dinner"

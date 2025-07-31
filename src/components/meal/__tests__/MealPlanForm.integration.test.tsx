@@ -17,21 +17,26 @@ jest.mock('@react-native-community/datetimepicker', () => {
 jest.mock('@react-native-picker/picker', () => {
   const React = require('react');
   const { View, Text } = require('react-native');
-  
-  const MockPicker = ({ children, onValueChange, selectedValue, ...props }: any) => (
+
+  const MockPicker = ({
+    children,
+    onValueChange,
+    selectedValue,
+    ...props
+  }: any) => (
     <View testID="meal-type-picker" {...props}>
       {children}
     </View>
   );
-  
+
   const MockPickerItem = ({ label, value, ...props }: any) => (
     <Text testID={`picker-item-${value}`} {...props}>
       {label}
     </Text>
   );
-  
+
   MockPicker.Item = MockPickerItem;
-  
+
   return {
     Picker: MockPicker,
   };
@@ -61,7 +66,7 @@ const createTestStore = () => {
 describe('MealPlanForm Integration', () => {
   it('コンポーネントがエラーなしでレンダリングされる', () => {
     const store = createTestStore();
-    
+
     const { getByText } = render(
       <Provider store={store}>
         <MealPlanForm />
@@ -79,7 +84,7 @@ describe('MealPlanForm Integration', () => {
 
   it('編集モードでコンポーネントがレンダリングされる', () => {
     const store = createTestStore();
-    
+
     const { getByText } = render(
       <Provider store={store}>
         <MealPlanForm mealPlanId="test-id" />

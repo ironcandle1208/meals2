@@ -16,6 +16,9 @@ module.exports = {
     },
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|expo|@expo|@react-navigation|react-redux|@reduxjs)/)',
+    'node_modules/(?!(react-native|@react-native|expo|@expo|@react-navigation|react-redux|@reduxjs|@expo/vector-icons)/)',
   ],
+  moduleNameMapper: {
+    '^@expo/vector-icons$': '<rootDir>/node_modules/@expo/vector-icons',
+  },
 };

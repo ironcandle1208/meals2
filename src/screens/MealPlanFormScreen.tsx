@@ -5,7 +5,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import MealPlanForm from '../components/meal/MealPlanForm';
 import { RootStackParamList } from '../types';
 
-type MealPlanFormScreenRouteProp = RouteProp<RootStackParamList, 'MealPlanForm'>;
+type MealPlanFormScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'MealPlanForm'
+>;
 type MealPlanFormScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'MealPlanForm'

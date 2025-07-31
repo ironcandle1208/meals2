@@ -4,11 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 
-// Screen imports (will be created later)
+// Screen imports
 import MealPlanScreen from '../screens/MealPlanScreen';
 import RecipeScreen from '../screens/RecipeScreen';
 import ShoppingListScreen from '../screens/ShoppingListScreen';
 import SearchScreen from '../screens/SearchScreen';
+import MealPlanFormScreen from '../screens/MealPlanFormScreen';
 
 import { TabParamList, RootStackParamList } from '../types';
 import { COLORS } from '../constants';
@@ -77,6 +78,17 @@ const AppNavigator: React.FC = () => {
           name="Home"
           component={TabNavigator}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MealPlanForm"
+          component={MealPlanFormScreen}
+          options={{
+            title: '献立作成・編集',
+            headerStyle: {
+              backgroundColor: COLORS.surface,
+            },
+            headerTintColor: COLORS.text,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
