@@ -1,18 +1,53 @@
-import * as SQLite from 'expo-sqlite';
+import { Platform } from 'react-native';
 import { DatabaseError } from '../../types';
 
 export interface DatabaseService {
   initialize(): Promise<void>;
   close(): Promise<void>;
-  getDatabase(): SQLite.SQLiteDatabase;
+  getDatabase(): any;
+}
+
+// Mock SQLite database for web environment
+class MockSQLiteDatabase {
+  async execAsync(query: string, params?: any[]) {
+    console.log('Mock SQL execution:', query, params);
+    return { rows: [], insertId: 1, rowsAffected: 0 };
+  }
+
+  async getAllAsync(query: string, params?: any[]) {
+    console.log('Mock SQL getAllAsync:', query, params);
+    return [];
+  }
+
+  async getFirstAsync(query: string, params?: any[]) {
+    console.log('Mock SQL getFirstAsync:', query, params);
+    return null;
+  }
+
+  async runAsync(query: string, params?: any[]) {
+    console.log('Mock SQL runAsync:', query, params);
+    return { lastInsertRowId: 1, changes: 0 };
+  }
+
+  async closeAsync() {
+    console.log('Mock SQL closeAsync');
+  }
 }
 
 export class SQLiteService implements DatabaseService {
-  private db: SQLite.SQLiteDatabase | null = null;
+  private db: any = null;
   private readonly dbName = 'meals.db';
 
   async initialize(): Promise<void> {
     try {
+      if (Platform.OS === 'web') {
+        console.warn('SQLite is not supported in web environment. Using mock implementation.');
+        this.db = new MockSQLiteDatabase();
+        return;
+      }
+
+      // Dynamic import for native platforms only
+      const SQLite = await import('expo-sqlite');
       this.db = await SQLite.openDatabaseAsync(this.dbName);
       await this.createTables();
       await this.createIndexes();
@@ -42,7 +77,7 @@ export class SQLiteService implements DatabaseService {
     }
   }
 
-  getDatabase(): SQLite.SQLiteDatabase {
+  getDatabase(): any {
     if (!this.db) {
       throw new DatabaseError('Database not initialized', 'NOT_INITIALIZED');
     }
@@ -50,8 +85,8 @@ export class SQLiteService implements DatabaseService {
   }
 
   private async createTables(): Promise<void> {
-    if (!this.db) {
-      throw new DatabaseError('Database not initialized', 'NOT_INITIALIZED');
+    if (Platform.OS === 'web' || !this.db) {
+      return;
     }
 
     // Create meal_plans table
@@ -113,8 +148,8 @@ export class SQLiteService implements DatabaseService {
   }
 
   private async createIndexes(): Promise<void> {
-    if (!this.db) {
-      throw new DatabaseError('Database not initialized', 'NOT_INITIALIZED');
+    if (Platform.OS === 'web' || !this.db) {
+      return;
     }
 
     // Indexes for meal_plans

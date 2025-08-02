@@ -1,4 +1,4 @@
-import * as SQLite from 'expo-sqlite';
+// SQLiteは動的インポートで処理されるため、型のみインポート
 import {
   Recipe,
   CreateRecipeInput,
@@ -9,7 +9,7 @@ import {
 import { databaseService } from './index';
 
 export class RecipeOperations {
-  private getDb(): SQLite.SQLiteDatabase {
+  private getDb(): any {
     return databaseService.getDatabase();
   }
 
